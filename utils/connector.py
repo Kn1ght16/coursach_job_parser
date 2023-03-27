@@ -1,3 +1,6 @@
+import json
+
+
 class Connector:
     """
     Класс коннектор к файлу, обязательно файл должен быть в json формате
@@ -31,7 +34,6 @@ class Connector:
         """
         Запись данных в файл с сохранением структуры и исходных данных
         """
-        pass
 
     def select(self, query):
         """
@@ -50,6 +52,21 @@ class Connector:
         функция удаления не сработает
         """
         pass
+
+    @staticmethod
+    def merge_json():
+        with open("vac_list_hh.json", encoding="utf-8") as file_hh, \
+                open("vac_list_sj.json", encoding="utf-8") as file_sj:
+            data1 = json.load(file_hh)
+            data2 = json.load(file_sj)
+
+        merged_data = {**data1, **data2}
+
+        with open("vac_list.json", 'w', encoding="utf-8") as of:
+            json.dump(merged_data, of)
+
+
+
 
 
 if __name__ == '__main__':
