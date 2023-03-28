@@ -14,7 +14,7 @@ class HH():
         self.params = {'area': 113, 'page': 0, 'per_page': 100, 'text': f'{self.key}', 'experience': 'noExperience'}
 
     def get_request(self):
-        r = requests.get(url=self.API_HH, params=self.params).json()['items']
+        r = requests.get(f'{self.API_HH}7text={self.key}&page={self.page}', params=self.params).json()['items']
         return r
 
     def to_json_hh(self):

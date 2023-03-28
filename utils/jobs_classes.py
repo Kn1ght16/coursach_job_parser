@@ -62,10 +62,10 @@ class HHVacancy(Vacancy, CountMixin):  # add counter mixin
                     url = item.get('url')
                     try:
                         salary = item.get('salary').get('from')
-                        if c is None:
-                            c = 0
+                        if salary is None:
+                            salary = 0
                     except AttributeError:
-                        c = 0
+                        salary = 0
                     comany_name = item.get("employer").get('name')
                     instance = HHVacancy(name, url, salary, comany_name)
                     cls.vacancies.append(instance)
@@ -91,8 +91,8 @@ class SJVacancy(Vacancy):  # add counter mixin
                     name = item.get("profession")
                     url = item.get("link")
                     try:
-                        c = item.get("payment_from")
-                        if c is None: c = 0
+                        salary = item.get("payment_from")
+                        if salary is None: c = 0
                     except AttributeError:
                         salary = 0
                     comany_name = item.get("firm_name")
