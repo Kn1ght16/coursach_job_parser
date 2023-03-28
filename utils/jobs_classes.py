@@ -92,7 +92,8 @@ class SJVacancy(Vacancy):  # add counter mixin
                     url = item.get("link")
                     try:
                         salary = item.get("payment_from")
-                        if salary is None: c = 0
+                        if salary is None:
+                            salary = 0
                     except AttributeError:
                         salary = 0
                     comany_name = item.get("firm_name")
