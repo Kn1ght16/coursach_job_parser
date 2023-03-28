@@ -1,23 +1,9 @@
 import os
 import requests
 import json
-from abc import ABC, abstractmethod
-from connector import Connector
 
 
-class Engine(ABC):
-    @abstractmethod
-    def get_request(self):
-        pass
-
-    @staticmethod
-    def get_connector(file_name: str):
-        """ Возвращает экземпляр класса Connector """
-        connector = Connector(file_name)
-        return connector
-
-
-class HH(Engine):
+class HH():
     API_HH = 'https://api.hh.ru/vacancies/'
 
     # Москва id 1, СПБ id 2, Белгород id 1
@@ -26,10 +12,6 @@ class HH(Engine):
         self.page = 0
         self.key = key
         self.params = {'area': 113, 'page': 0, 'per_page': 100, 'text': f'{self.key}', 'experience': 'noExperience'}
-        self.name = self.get_request()[0]['name']
-        self.url = self.get_request()[0]['alternate_url']
-        self.salary = self.get_request()[0]['salary']['from']
-        self.requirement = self.get_request()[0]['snippet']['requirement']
 
     def get_request(self):
         r = requests.get(url=self.API_HH, params=self.params).json()['items']
@@ -45,7 +27,7 @@ class HH(Engine):
             json.dump(json_list, file, ensure_ascii=False)
 
 
-class SuperJob(Engine):
+class SuperJob():
     API_SJ = os.getenv('SuperJobAPI')
 
     def __init__(self, key):
